@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Licitus · NAU Assessoria</title>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+body{background:#0d1f3a;font-family:'Segoe UI',system-ui,sans-serif;color:#e0e8f0;min-height:100vh}
+nav{position:fixed;top:0;left:0;right:0;z-index:200;display:flex;align-items:center;justify-content:space-between;padding:8px 28px;background:rgba(8,16,40,0.92);backdrop-filter:blur(12px);border-bottom:1px solid rgba(201,168,76,0.15)}
+.nav-logo{color:#c9a84c;font-size:0.9rem;font-weight:700;letter-spacing:0.22em;text-decoration:none;text-transform:uppercase}
+.nav-back{color:#7a8faa;text-decoration:none;font-size:0.72rem;letter-spacing:0.08em;text-transform:uppercase;transition:color 0.2s;border:1px solid rgba(201,168,76,0.25);padding:5px 14px;border-radius:2px}
+.nav-back:hover{color:#c9a84c;border-color:#c9a84c}
+#login-gate{display:flex;align-items:center;justify-content:center;min-height:100vh;padding:20px}
+.login-box{background:rgba(8,16,40,0.9);border:1px solid rgba(201,168,76,0.28);border-radius:6px;padding:40px 44px;width:100%;max-width:400px}
+.login-box h1{color:#c9a84c;font-size:0.72rem;letter-spacing:0.22em;text-transform:uppercase;font-weight:400;margin-bottom:6px}
+.login-box h2{color:#e0e8f0;font-size:1.35rem;font-weight:600;margin-bottom:28px;letter-spacing:0.04em}
+.lf{margin-bottom:16px}
+.lf label{display:block;color:#7a8faa;font-size:0.67rem;letter-spacing:0.1em;text-transform:uppercase;margin-bottom:6px}
+.lf input{width:100%;background:rgba(255,255,255,0.04);border:1px solid rgba(201,168,76,0.2);border-radius:2px;color:#e0e8f0;font-family:inherit;font-size:0.88rem;padding:10px 14px;outline:none;transition:border-color 0.2s}
+.lf input:focus{border-color:rgba(201,168,76,0.6)}
+.lg-btn{width:100%;padding:12px;background:#c9a84c;border:none;border-radius:2px;color:#0d1f3a;font-family:inherit;font-size:0.82rem;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;cursor:pointer;transition:background 0.2s;margin-top:8px}
+.lg-btn:hover{background:#e8c96a}
+#lg-err{margin-top:10px;font-size:0.77rem;color:#e05555;min-height:16px;text-align:center}
+#dashboard{display:none;padding:90px 32px 48px;max-width:900px;margin:0 auto}
+.dash-header{margin-bottom:40px}
+.dash-header h1{color:#c9a84c;font-size:0.68rem;letter-spacing:0.22em;text-transform:uppercase;font-weight:400;margin-bottom:6px}
+.dash-header h2{color:#e0e8f0;font-size:1.6rem;font-weight:700;letter-spacing:0.03em;margin-bottom:10px}
+.coming-soon{background:rgba(201,168,76,0.06);border:1px solid rgba(201,168,76,0.2);border-radius:6px;padding:52px 40px;text-align:center;margin-bottom:32px}
+.cs-icon{font-size:2.6rem;margin-bottom:18px}
+.coming-soon h3{color:#c9a84c;font-size:1.1rem;font-weight:600;letter-spacing:0.06em;margin-bottom:12px}
+.coming-soon p{color:#7a8faa;font-size:0.85rem;line-height:1.7;max-width:480px;margin:0 auto}
+.features{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:14px;margin-bottom:32px}
+.feat{background:rgba(255,255,255,0.03);border:1px solid rgba(201,168,76,0.1);border-radius:4px;padding:20px 18px}
+.feat-icon{font-size:1.3rem;margin-bottom:8px}
+.feat h4{color:#aabbcc;font-size:0.78rem;font-weight:600;letter-spacing:0.05em;text-transform:uppercase;margin-bottom:4px}
+.feat p{color:#556688;font-size:0.73rem;line-height:1.5}
+.logout-link{color:#556688;font-size:0.72rem;letter-spacing:0.08em;text-transform:uppercase;cursor:pointer;background:none;border:none;font-family:inherit;text-decoration:underline}
+.logout-link:hover{color:#c9a84c}
+@media(max-width:600px){
+.login-box{padding:28px 22px}
+#dashboard{padding:80px 18px 40px}
+.coming-soon{padding:36px 24px}
+}
+</style>
+</head>
+<body>
+<nav>
+<a href="/" class="nav-logo">NAU</a>
+<a href="/" class="nav-back">&#8592; Voltar</a>
+</nav>
+<div id="login-gate">
+<div class="login-box">
+<h1>NAU Assessoria</h1>
+<h2>Licitus</h2>
+<div class="lf">
+<label>Utilizador</label>
+<input type="text" id="lg-user" placeholder="nau" autocomplete="username">
+</div>
+<div class="lf">
+<label>Senha</label>
+<input type="password" id="lg-pass" placeholder="&#8226;&#8226;&#8226;&#8226;&#8226;&#8226;" autocomplete="current-password">
+</div>
+<button class="lg-btn" onclick="doLogin()">Entrar</button>
+<p id="lg-err"></p>
+</div>
+</div>
+<div id="dashboard">
+<div class="dash-header">
+<h1>NAU Assessoria · Licitus</h1>
+<h2>Licitações Públicas</h2>
+</div>
+<div class="coming-soon">
+<div class="cs-icon">📋</div>
+<h3>Plataforma em Desenvolvimento</h3>
+<p>O módulo Licitus para monitorização e participação em licitações públicas e contratos governamentais está em fase de desenvolvimento. Brevemente disponível.</p>
+</div>
+<div class="features">
+<div class="feat"><div class="feat-icon">🔍</div><h4>Monitorização</h4><p>Acompanhamento de licitações por setor e região</p></div>
+<div class="feat"><div class="feat-icon">📄</div><h4>Documentação</h4><p>Gestão de propostas e documentos técnicos</p></div>
+<div class="feat"><div class="feat-icon">⚡</div><h4>Alertas</h4><p>Notificações de novos editais e prazos</p></div>
+<div class="feat"><div class="feat-icon">📊</div><h4>Analytics</h4><p>Análise de concorrência e histórico de contratos</p></div>
+</div>
+<button class="logout-link" onclick="doLogout()">Terminar sessão</button>
+</div>
+<script>
+(function(){
+var KEY='nau_plt';
+function show(id){
+document.getElementById('login-gate').style.display=id==='dash'?'none':'flex';
+document.getElementById('dashboard').style.display=id==='dash'?'block':'none';
+}
+if(sessionStorage.getItem(KEY)==='1'){show('dash');}
+window.doLogin=function(){
+var u=document.getElementById('lg-user').value.trim();
+var p=document.getElementById('lg-pass').value;
+var err=document.getElementById('lg-err');
+if(u==='nau'&&p==='123456'){
+sessionStorage.setItem(KEY,'1');
+err.textContent='';
+show('dash');
+}else{
+err.textContent='Credenciais incorretas.';
+}
+};
+window.doLogout=function(){
+sessionStorage.removeItem(KEY);
+show('login');
+};
+document.getElementById('lg-pass').addEventListener('keydown',function(e){if(e.key==='Enter')window.doLogin();});
+document.getElementById('lg-user').addEventListener('keydown',function(e){if(e.key==='Enter')document.getElementById('lg-pass').focus();});
+})();
+</script>
+</body>
+</html>
