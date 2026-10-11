@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Trader Desk · NAU Assessoria</title>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{background:#0d1f3a;font-family:'Segoe UI',system-ui,sans-serif;color:#e0e8f0;min-height:100vh}
+nav{position:fixed;top:0;left:0;right:0;z-index:200;display:flex;align-items:center;justify-content:space-between;padding:8px 28px;background:rgba(8,16,40,0.92);backdrop-filter:blur(12px);border-bottom:1px solid rgba(201,168,76,0.15)}
+.nav-logo{color:#c9a84c;font-size:0.9rem;font-weight:700;letter-spacing:0.22em;text-decoration:none;text-transform:uppercase}
+.nav-back{color:#7a8faa;text-decoration:none;font-size:0.72rem;letter-spacing:0.08em;text-transform:uppercase;transition:color 0.2s;border:1px solid rgba(201,168,76,0.25);padding:5px 14px;border-radius:2px}
+.nav-back:hover{color:#c9a84c;border-color:#c9a84c}
+#login-gate{display:flex;align-items:center;justify-content:center;min-height:100vh;padding:20px}
+.login-box{background:rgba(8,16,40,0.9);border:1px solid rgba(201,168,76,0.28);border-radius:6px;padding:40px 44px;width:100%;max-width:400px}
+.login-box h1{color:#c9a84c;font-size:0.72rem;letter-spacing:0.22em;text-transform:uppercase;font-weight:400;margin-bottom:6px}
+.login-box h2{color:#e0e8f0;font-size:1.35rem;font-weight:600;margin-bottom:28px;letter-spacing:0.04em}
+.lf{margin-bottom:16px}
+.lf label{display:block;color:#7a8faa;font-size:0.67rem;letter-spacing:0.1em;text-transform:uppercase;margin-bottom:6px}
+.lf input{width:100%;background:rgba(255,255,255,0.04);border:1px solid rgba(201,168,76,0.2);border-radius:2px;color:#e0e8f0;font-family:inherit;font-size:0.88rem;padding:10px 14px;outline:none;transition:border-color 0.2s}
+.lf input:focus{border-color:rgba(201,168,76,0.6)}
+.lg-btn{width:100%;padding:12px;background:#c9a84c;border:none;border-radius:2px;color:#0d1f3a;font-family:inherit;font-size:0.82rem;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;cursor:pointer;transition:background 0.2s;margin-top:8px}
+.lg-btn:hover{background:#e8c96a}
+#lg-err{margin-top:10px;font-size:0.77rem;color:#e05555;min-height:16px;text-align:center}
+#dashboard{display:none;padding:90px 32px 48px}
+.dash-header{margin-bottom:36px}
+.dash-header h1{color:#c9a84c;font-size:0.68rem;letter-spacing:0.22em;text-transform:uppercase;font-weight:400;margin-bottom:6px}
+.dash-header h2{color:#e0e8f0;font-size:1.6rem;font-weight:700;letter-spacing:0.03em}
+.dash-header p{color:#7a8faa;font-size:0.82rem;margin-top:8px;letter-spacing:0.02em}
+.section-title{color:#c9a84c;font-size:0.65rem;letter-spacing:0.2em;text-transform:uppercase;font-weight:400;margin-bottom:16px;padding-bottom:8px;border-bottom:1px solid rgba(201,168,76,0.15)}
+.crm-card{display:flex;align-items:center;justify-content:space-between;background:rgba(201,168,76,0.08);border:1px solid rgba(201,168,76,0.35);border-radius:6px;padding:28px 32px;margin-bottom:36px;text-decoration:none;transition:all 0.25s;gap:20px}
+.crm-card:hover{background:rgba(201,168,76,0.14);border-color:#c9a84c}
+.crm-info h3{color:#c9a84c;font-size:1.05rem;font-weight:700;letter-spacing:0.06em;text-transform:uppercase;margin-bottom:5px}
+.crm-info p{color:#aabbcc;font-size:0.82rem;line-height:1.5}
+.crm-arrow{color:#c9a84c;font-size:1.8rem;flex-shrink:0}
+.modules{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:14px;margin-bottom:36px}
+.mod-card{background:rgba(255,255,255,0.03);border:1px solid rgba(201,168,76,0.12);border-radius:4px;padding:22px 20px;text-decoration:none;transition:all 0.22s;display:block}
+.mod-card:hover{background:rgba(255,255,255,0.06);border-color:rgba(201,168,76,0.3)}
+.mod-icon{font-size:1.4rem;margin-bottom:10px}
+.mod-card h4{color:#e0e8f0;font-size:0.82rem;font-weight:600;letter-spacing:0.05em;text-transform:uppercase;margin-bottom:4px}
+.mod-card p{color:#7a8faa;font-size:0.74rem;line-height:1.5}
+.mod-card.disabled{opacity:0.45;cursor:not-allowed;pointer-events:none}
+.badge{display:inline-block;background:rgba(201,168,76,0.15);color:#c9a84c;font-size:0.58rem;letter-spacing:0.1em;padding:2px 7px;border-radius:2px;text-transform:uppercase;margin-left:6px;vertical-align:middle}
+.logout-link{color:#556688;font-size:0.72rem;letter-spacing:0.08em;text-transform:uppercase;cursor:pointer;background:none;border:none;font-family:inherit;text-decoration:underline;margin-top:32px;display:inline-block}
+.logout-link:hover{color:#c9a84c}
+@media(max-width:600px){
+.login-box{padding:28px 22px}
+#dashboard{padding:80px 18px 40px}
+.crm-card{flex-direction:column;align-items:flex-start;padding:22px 20px}
+.modules{grid-template-columns:1fr}
+}
+</style>
+</head>
+<body>
+<nav>
+<a href="/" class="nav-logo">NAU</a>
+<a href="/" class="nav-back">&#8592; Voltar</a>
+</nav>
+<div id="login-gate">
+<div class="login-box">
+<h1>NAU Assessoria</h1>
+<h2>Trader Desk</h2>
+<div class="lf">
+<label>Utilizador</label>
+<input type="text" id="lg-user" placeholder="nau" autocomplete="username">
+</div>
+<div class="lf">
+<label>Senha</label>
+<input type="password" id="lg-pass" placeholder="&#8226;&#8226;&#8226;&#8226;&#8226;&#8226;" autocomplete="current-password">
+</div>
+<button class="lg-btn" onclick="doLogin()">Entrar</button>
+<p id="lg-err"></p>
+</div>
+</div>
+<div id="dashboard">
+<div class="dash-header">
+<h1>NAU Assessoria · Trader Desk</h1>
+<h2>Bem-vindo</h2>
+<p>Plataforma interna de operações, contactos e gestão de negócios.</p>
+</div>
+<p class="section-title">CRM &amp; Contactos</p>
+<a class="crm-card" href="/crm/">
+<div class="crm-info">
+<h3>NAU Exchange CRM</h3>
+<p>Gestão de contactos, empresas, oportunidades e pipeline de negócios. Base de dados completa de clientes e parceiros NAU.</p>
+</div>
+<div class="crm-arrow">&#8594;</div>
+</a>
+<p class="section-title">Módulos Operacionais</p>
+<div class="modules">
+<a class="mod-card" href="/ma/">
+<div class="mod-icon">⚡</div>
+<h4>M&amp;A Terminal</h4>
+<p>Fusões, aquisições e estruturação de transações estratégicas.</p>
+</a>
+<a class="mod-card" href="/licitus/">
+<div class="mod-icon">📋</div>
+<h4>Licitus</h4>
+<p>Licitações públicas e contratos governamentais.</p>
+</a>
+<div class="mod-card disabled">
+<div class="mod-icon">📊</div>
+<h4>Relatórios <span class="badge">Em breve</span></h4>
+<p>Dashboards e analytics de operações e pipeline.</p>
+</div>
+<div class="mod-card disabled">
+<div class="mod-icon">📁</div>
+<h4>Documentos <span class="badge">Em breve</span></h4>
+<p>Repositório seguro de contratos e NDAs.</p>
+</div>
+</div>
+<button class="logout-link" onclick="doLogout()">Terminar sessão</button>
+</div>
+<script>
+(function(){
+var KEY='nau_plt';
+function show(id){
+document.getElementById('login-gate').style.display=id==='dash'?'none':'flex';
+document.getElementById('dashboard').style.display=id==='dash'?'block':'none';
+}
+if(sessionStorage.getItem(KEY)==='1'){show('dash');}
+window.doLogin=function(){
+var u=document.getElementById('lg-user').value.trim();
+var p=document.getElementById('lg-pass').value;
+var err=document.getElementById('lg-err');
+if(u==='nau'&&p==='123456'){
+sessionStorage.setItem(KEY,'1');
+err.textContent='';
+show('dash');
+}else{
+err.textContent='Credenciais incorretas.';
+}
+};
+window.doLogout=function(){
+sessionStorage.removeItem(KEY);
+show('login');
+};
+document.getElementById('lg-pass').addEventListener('keydown',function(e){if(e.key==='Enter')window.doLogin();});
+document.getElementById('lg-user').addEventListener('keydown',function(e){if(e.key==='Enter')document.getElementById('lg-pass').focus();});
+})();
+</script>
+</body>
+</html>
