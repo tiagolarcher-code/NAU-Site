@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="pt">
+<html lang="pt" id="html-root">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
@@ -12,16 +12,19 @@ body{background:#0d1f3a;font-family:'Segoe UI',system-ui,sans-serif;overflow-x:h
 
 /* NAV */
 nav{position:fixed;top:0;left:0;right:0;z-index:200;display:flex;align-items:center;justify-content:space-between;padding:8px 32px;background:rgba(8,16,40,0.85);backdrop-filter:blur(12px);border-bottom:1px solid rgba(201,168,76,0.12)}
-
-.hamburger{display:flex;flex-direction:column;gap:5px;cursor:pointer;padding:4px;background:none;border:none;z-index:300;margin-left:16px}
+.nav-right{display:flex;align-items:center;gap:10px}
+.lang-btn{background:none;border:1px solid rgba(201,168,76,0.35);color:#c9a84c;font-size:0.62rem;letter-spacing:0.12em;padding:4px 10px;border-radius:2px;cursor:pointer;font-family:inherit;text-transform:uppercase;transition:all 0.2s}
+.lang-btn:hover{background:rgba(201,168,76,0.1);border-color:#c9a84c}
+.hamburger{display:flex;flex-direction:column;gap:5px;cursor:pointer;padding:4px;background:none;border:none;z-index:300}
 .hamburger span{display:block;width:24px;height:2px;background:#7a8faa;transition:all 0.3s}
 .hamburger:hover span{background:#c9a84c}
 .nav-links{display:none;position:absolute;top:100%;left:0;right:0;flex-direction:column;gap:0;background:rgba(8,16,40,0.98);border-bottom:1px solid rgba(201,168,76,0.2);padding:8px 0;z-index:100}
 .nav-links.open{display:flex}
 .nav-links a{color:#7a8faa;text-decoration:none;font-size:0.75rem;letter-spacing:0.09em;text-transform:uppercase;transition:color 0.2s;padding:10px 32px;width:100%;display:block}
 .nav-links a:hover{color:#c9a84c}
+.nav-links .admin-link{color:#c9a84c;border-top:1px solid rgba(201,168,76,0.15);margin-top:6px;padding-top:14px}
 
-/* SECCOES DE SLIDE */
+/* SLIDES */
 .slide-section{width:100%;position:relative}
 .slide-section img.slide-img{width:100%;height:auto;display:block}
 
@@ -52,148 +55,211 @@ nav{position:fixed;top:0;left:0;right:0;z-index:200;display:flex;align-items:cen
 /* PLATAFORMAS */
 #plataformas{background:#091729;border-top:1px solid rgba(201,168,76,0.2);border-bottom:1px solid rgba(201,168,76,0.2);padding:18px 40px;display:flex;align-items:center;gap:12px;flex-wrap:wrap}
 .plt-label{font-size:0.65rem;letter-spacing:0.18em;text-transform:uppercase;color:#556688;margin-right:6px}
-.plt-btn{padding:7px 18px;border:1px solid rgba(201,168,76,0.3);border-radius:3px;color:#aabbcc;text-decoration:none;font-size:0.75rem;letter-spacing:0.05em;text-transform:uppercase;transition:all 0.2s;white-space:nowrap}
-.plt-btn:hover{border-color:#c9a84c;color:#c9a84c;background:rgba(201,168,76,0.06)}
+.plt-btn{padding:7px 18px;border:1px solid rgba(201,168,76,0.35);border-radius:3px;color:#c9a84c;font-size:0.75rem;letter-spacing:0.05em;text-transform:uppercase;transition:all 0.2s;white-space:nowrap;cursor:pointer;background:transparent;font-family:inherit}
+.plt-btn:hover{border-color:#c9a84c;background:rgba(201,168,76,0.08)}
+
+/* ADMIN MODAL */
+#admin-modal{display:none;position:fixed;inset:0;background:rgba(8,16,40,0.93);z-index:500;align-items:center;justify-content:center;backdrop-filter:blur(8px)}
+#admin-modal.open{display:flex}
+.admin-box{background:#0d1f3a;border:1px solid rgba(201,168,76,0.3);border-radius:6px;padding:36px 40px;width:100%;max-width:420px;position:relative}
+.admin-close{position:absolute;top:14px;right:18px;background:none;border:none;color:#556688;font-size:1.1rem;cursor:pointer;line-height:1;padding:4px}
+.admin-close:hover{color:#c9a84c}
+.admin-box h2{color:#c9a84c;font-size:0.7rem;letter-spacing:0.22em;text-transform:uppercase;margin-bottom:26px;font-weight:500}
+.af-field{margin-bottom:14px}
+.af-field label{display:block;color:#7a8faa;font-size:0.65rem;letter-spacing:0.1em;text-transform:uppercase;margin-bottom:6px}
+.af-field input{width:100%;background:rgba(255,255,255,0.04);border:1px solid rgba(201,168,76,0.2);border-radius:2px;color:#e0e8f0;font-family:inherit;font-size:0.85rem;padding:10px 14px;outline:none;transition:border-color 0.2s}
+.af-field input:focus{border-color:rgba(201,168,76,0.6)}
+.af-submit{width:100%;padding:12px;background:#c9a84c;border:none;border-radius:2px;color:#0d1f3a;font-family:inherit;font-size:0.8rem;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;cursor:pointer;margin-top:10px;transition:background 0.2s}
+.af-submit:hover{background:#e8c96a}
+#admin-err{color:#e05555;font-size:0.75rem;margin-top:10px;min-height:16px;text-align:center}
+#admin-panel{display:none}
+#admin-panel h2{color:#c9a84c;font-size:0.7rem;letter-spacing:0.22em;text-transform:uppercase;margin-bottom:22px;font-weight:500}
+.ap-grid{display:grid;grid-template-columns:1fr 1fr;gap:11px}
+.ap-btn{display:block;padding:18px 12px;background:rgba(201,168,76,0.05);border:1px solid rgba(201,168,76,0.22);border-radius:4px;color:#e0e8f0;text-decoration:none;font-size:0.76rem;letter-spacing:0.07em;text-transform:uppercase;text-align:center;transition:all 0.2s}
+.ap-btn:hover{background:rgba(201,168,76,0.11);border-color:#c9a84c;color:#c9a84c}
+.ap-sub{display:block;font-size:0.6rem;color:#556688;margin-top:5px;letter-spacing:0.04em;text-transform:none}
 
 @media(max-width:768px){
 nav{padding:7px 14px}
 #plataformas{padding:14px 16px}
 .contato-overlay{padding:4% 5% 4%}
 #form-contato{padding:22px 20px;max-width:100%}
+.admin-box{padding:28px 22px;margin:16px}
+.ap-grid{grid-template-columns:1fr}
 }
 </style>
 </head>
 <body>
 
-<!-- NAV FIXO -->
 <nav>
 <button class="hamburger" onclick="document.getElementById('nav-menu').classList.toggle('open')" aria-label="Menu">
 <span></span><span></span><span></span>
 </button>
 <div class="nav-links" id="nav-menu">
-<a href="#areas">Assessoria</a>
-<a href="#oportunidades">Oportunidades</a>
-<a href="#processo">Processo</a>
-<a href="#confidencialidade">Confidencialidade</a>
-<a href="#diferenciais">Diferenciais</a>
-<a href="#contato">Contato</a>
-<a href="/trader/">Trader Desk</a>
-<a href="/ma/">M&A Marketplace</a>
-<a href="/crm/">CRM</a>
-<a href="/licitus/">Licitus</a>
+<a href="#areas" data-pt="Assessoria" data-en="Advisory">Assessoria</a>
+<a href="#oportunidades" data-pt="Oportunidades" data-en="Opportunities">Oportunidades</a>
+<a href="#processo" data-pt="Processo" data-en="Process">Processo</a>
+<a href="#confidencialidade" data-pt="Confidencialidade" data-en="Confidentiality">Confidencialidade</a>
+<a href="#diferenciais" data-pt="Diferenciais" data-en="Differentials">Diferenciais</a>
+<a href="#contato" data-pt="Contato" data-en="Contact">Contato</a>
+<a href="#" class="admin-link" onclick="openAdmin();document.getElementById('nav-menu').classList.remove('open');return false;" data-pt="Administracao NAU" data-en="NAU Admin">Administracao NAU</a>
+</div>
+<div class="nav-right">
+<button class="lang-btn" id="lang-toggle" onclick="toggleLang()">EN</button>
 </div>
 </nav>
 
-<!-- HERO -->
 <section id="hero" class="slide-section">
 <img class="slide-img" src="imagens/1_Conectamos-capital-ativos-e-oportunidades-estrategicas.png" alt="NAU - Intermediacao Estrategica de Negocios">
-<div class="hero-links"><div class="hero-btns"><a class="hero-btn" href="#oportunidades">Explorar oportunidades</a><a class="hero-btn" href="#contato">Falar com a NAU</a></div></div>
+<div class="hero-links"><div class="hero-btns"><a class="hero-btn" href="#oportunidades">&#160;</a><a class="hero-btn" href="#contato">&#160;</a></div></div>
 </section>
 
-<!-- BARRA DE PLATAFORMAS -->
 <div id="plataformas">
-<span class="plt-label">Plataformas</span>
-<a class="plt-btn" href="/trader/">Trader Desk</a>
-<a class="plt-btn" href="/ma/">M&amp;A Terminal</a>
-<a class="plt-btn" href="/crm/">CRM</a>
-<a class="plt-btn" href="/licitus/">Licitus</a>
+<span class="plt-label" data-pt="Acesso Interno" data-en="Internal Access">Acesso Interno</span>
+<button class="plt-btn" onclick="openAdmin()" data-pt="&#9657; Administracao NAU" data-en="&#9657; NAU Admin">&#9657; Administracao NAU</button>
 </div>
 
-<!-- AREAS -->
 <section id="areas" class="slide-section">
 <img class="slide-img" src="imagens/2_Seis-areas-de-atuacao.png" alt="Seis Areas de Atuacao">
 </section>
 
-<!-- OPORTUNIDADES -->
 <section id="oportunidades" class="slide-section">
 <img class="slide-img" src="imagens/3_Oportunidades-Selecionadas.png" alt="Oportunidades Selecionadas">
 </section>
 
-<!-- PROCESSO -->
 <section id="processo" class="slide-section">
 <img class="slide-img" src="imagens/4_Como-a-NAU-Trabalha.png" alt="Como a NAU Trabalha">
 </section>
 
-<!-- CONFIDENCIALIDADE -->
 <section id="confidencialidade" class="slide-section">
 <img class="slide-img" src="imagens/5_Protocolo-de-Confidencialidade.png" alt="Protocolo de Confidencialidade">
 </section>
 
-<!-- DIFERENCIAIS -->
 <section id="diferenciais" class="slide-section">
 <img class="slide-img" src="imagens/6_Por-que-a-NAU.png" alt="Por que a NAU">
 </section>
 
-<!-- CONTATO -->
 <section id="contato" class="slide-section">
 <img class="slide-img" src="imagens/7_Solicitar-uma-Apresentacao-de-Negocios.png" alt="Solicitar uma Apresentacao de Negocios">
 <div class="contato-full-cover"></div>
 <div class="contato-overlay">
 <form id="form-contato" novalidate>
-<h3>Solicitar uma apresentacao</h3>
+<h3 data-pt="Solicitar uma apresentacao" data-en="Request a presentation">Solicitar uma apresentacao</h3>
 <div class="fc-field">
-<label for="fc-nome">Nome</label>
-<input type="text" id="fc-nome" name="nome" placeholder="O seu nome" required>
+<label for="fc-nome" data-pt="Nome" data-en="Name">Nome</label>
+<input type="text" id="fc-nome" name="nome" placeholder="O seu nome" data-pt-ph="O seu nome" data-en-ph="Your name" required>
 </div>
 <div class="fc-field">
 <label for="fc-email">E-mail</label>
 <input type="email" id="fc-email" name="email" placeholder="seuemail@empresa.com" required>
 </div>
 <div class="fc-field">
-<label for="fc-mensagem">Mensagem</label>
-<textarea id="fc-mensagem" name="mensagem" placeholder="Descreva brevemente o seu interesse ou activo" required></textarea>
+<label for="fc-mensagem" data-pt="Mensagem" data-en="Message">Mensagem</label>
+<textarea id="fc-mensagem" name="mensagem" placeholder="Descreva brevemente o seu interesse ou activo" data-pt-ph="Descreva brevemente o seu interesse ou activo" data-en-ph="Briefly describe your interest or asset" required></textarea>
 </div>
-<button class="fc-submit" type="submit">Enviar mensagem</button>
+<button class="fc-submit" type="submit" data-pt="Enviar mensagem" data-en="Send message">Enviar mensagem</button>
 <p id="fc-status"></p>
 </form>
 </div>
 </section>
 
+<!-- MODAL ADMINISTRACAO -->
+<div id="admin-modal">
+<div class="admin-box">
+<button class="admin-close" onclick="closeAdmin()">&#10005;</button>
+<div id="admin-login-view">
+<h2 data-pt="Administracao NAU" data-en="NAU Administration">Administracao NAU</h2>
+<div class="af-field">
+<label data-pt="Utilizador" data-en="Username">Utilizador</label>
+<input type="text" id="af-user" autocomplete="username">
+</div>
+<div class="af-field">
+<label data-pt="Senha" data-en="Password">Senha</label>
+<input type="password" id="af-pass" autocomplete="current-password">
+</div>
+<button class="af-submit" id="af-btn" onclick="adminLogin()" data-pt="Entrar" data-en="Enter">Entrar</button>
+<p id="admin-err"></p>
+</div>
+<div id="admin-panel">
+<h2 data-pt="Plataformas NAU" data-en="NAU Platforms">Plataformas NAU</h2>
+<div class="ap-grid">
+<a class="ap-btn" href="/trader/">Trader Desk<span class="ap-sub" data-pt="Operacoes e CRM" data-en="Operations & CRM">Operacoes e CRM</span></a>
+<a class="ap-btn" href="/ma/login.html">M&amp;A<span class="ap-sub" data-pt="Fusoes e Aquisicoes" data-en="Mergers & Acquisitions">Fusoes e Aquisicoes</span></a>
+<a class="ap-btn" href="/licitus/">Licitus<span class="ap-sub" data-pt="Licitacoes Publicas" data-en="Public Procurement">Licitacoes Publicas</span></a>
+</div>
+</div>
+</div>
+</div>
+
 <script>
 (function(){
-var form = document.getElementById('form-contato');
-var btn = form.querySelector('.fc-submit');
-var st = document.getElementById('fc-status');
+var ERR={
+pt:{'fill':'Por favor preencha todos os campos.','sending':'A enviar...','sent':'Mensagem enviada! Entraremos em contacto brevemente.','fail':'Nao foi possivel enviar. Tente por e-mail ou WhatsApp.','send':'Enviar mensagem','cred':'Credenciais incorretas.'},
+en:{'fill':'Please fill in all fields.','sending':'Sending...','sent':'Message sent! We will contact you shortly.','fail':'Could not send. Try e-mail or WhatsApp.','send':'Send message','cred':'Incorrect credentials.'}
+};
+var lang=localStorage.getItem('nau_lang')||'pt';
+function applyLang(){
+document.getElementById('lang-toggle').textContent=lang==='pt'?'EN':'PT';
+document.querySelectorAll('[data-pt]').forEach(function(el){el.textContent=lang==='pt'?el.getAttribute('data-pt'):el.getAttribute('data-en');});
+document.querySelectorAll('[data-pt-ph]').forEach(function(el){el.placeholder=lang==='pt'?el.getAttribute('data-pt-ph'):el.getAttribute('data-en-ph');});
+}
+window.toggleLang=function(){lang=lang==='pt'?'en':'pt';localStorage.setItem('nau_lang',lang);applyLang();};
+applyLang();
 
-form.addEventListener('submit', async function(e){
+// CONTACT FORM
+var form=document.getElementById('form-contato');
+var btn=form.querySelector('.fc-submit');
+var st=document.getElementById('fc-status');
+form.addEventListener('submit',async function(e){
 e.preventDefault();
-var nome = document.getElementById('fc-nome').value.trim();
-var email = document.getElementById('fc-email').value.trim();
-var mensagem = document.getElementById('fc-mensagem').value.trim();
-
-if(!nome || !email || !mensagem){
-st.textContent = 'Por favor preencha todos os campos.';
-st.className = 'err';
-return;
-}
-
-btn.disabled = true;
-btn.textContent = 'A enviar...';
-st.textContent = '';
-st.className = '';
-
+var nome=document.getElementById('fc-nome').value.trim();
+var email=document.getElementById('fc-email').value.trim();
+var mensagem=document.getElementById('fc-mensagem').value.trim();
+var t=ERR[lang];
+if(!nome||!email||!mensagem){st.textContent=t.fill;st.className='err';return;}
+btn.disabled=true;btn.textContent=t.sending;st.textContent='';st.className='';
 try{
-var res = await fetch('/api/contato', {
-method: 'POST',
-headers: {'Content-Type':'application/json'},
-body: JSON.stringify({nome: nome, email: email, mensagem: mensagem})
+var res=await fetch('/api/contato',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({nome:nome,email:email,mensagem:mensagem})});
+var data=await res.json();
+if(res.ok&&data.ok){st.textContent=t.sent;st.className='ok';form.reset();}
+else{throw new Error(data.erro||'err');}
+}catch(e2){st.textContent=t.fail;st.className='err';}
+finally{btn.disabled=false;btn.textContent=t.send;}
 });
-var data = await res.json();
-if(res.ok && data.ok){
-st.textContent = 'Mensagem enviada! Entraremos em contacto brevemente.';
-st.className = 'ok';
-form.reset();
-} else {
-throw new Error(data.erro || 'Erro desconhecido');
+
+// ADMIN MODAL
+window.openAdmin=function(){
+var m=document.getElementById('admin-modal');
+m.classList.add('open');
+if(sessionStorage.getItem('nau_admin')==='1'){
+document.getElementById('admin-login-view').style.display='none';
+document.getElementById('admin-panel').style.display='block';
+}else{
+document.getElementById('admin-login-view').style.display='block';
+document.getElementById('admin-panel').style.display='none';
+document.getElementById('af-user').value='';
+document.getElementById('af-pass').value='';
+document.getElementById('admin-err').textContent='';
+setTimeout(function(){document.getElementById('af-user').focus();},80);
 }
-} catch(err){
-st.textContent = 'Nao foi possivel enviar. Tente por e-mail ou WhatsApp.';
-st.className = 'err';
-} finally {
-btn.disabled = false;
-btn.textContent = 'Enviar mensagem';
+};
+window.closeAdmin=function(){document.getElementById('admin-modal').classList.remove('open');};
+window.adminLogin=function(){
+var u=document.getElementById('af-user').value.trim();
+var p=document.getElementById('af-pass').value;
+if(u==='Tiago'&&p==='123456'){
+sessionStorage.setItem('nau_admin','1');
+sessionStorage.setItem('nau_plt','1');
+document.getElementById('admin-login-view').style.display='none';
+document.getElementById('admin-panel').style.display='block';
+document.getElementById('admin-err').textContent='';
+}else{
+document.getElementById('admin-err').textContent=ERR[lang].cred;
 }
-});
+};
+document.getElementById('admin-modal').addEventListener('click',function(e){if(e.target===this)closeAdmin();});
+document.addEventListener('keydown',function(e){if(e.key==='Escape')closeAdmin();});
+document.getElementById('af-pass').addEventListener('keydown',function(e){if(e.key==='Enter')adminLogin();});
 })();
 </script>
 
