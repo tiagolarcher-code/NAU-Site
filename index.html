@@ -30,6 +30,10 @@ nav{position:fixed;top:0;left:0;right:0;z-index:200;display:flex;align-items:cen
 
 /* HERO */
 #hero{position:relative}
+.hero-links{position:absolute;top:0;left:0;right:0;bottom:0;display:flex;flex-direction:column;justify-content:flex-end;padding:0 5% 26%;z-index:2;pointer-events:none}
+.hero-btns{display:flex;gap:16px;pointer-events:auto}
+.hero-btn{padding:14px 32px;border:none;color:transparent;text-decoration:none;font-size:0.85rem;cursor:pointer;background:transparent}
+#hero{position:relative}
 
 
 
@@ -41,7 +45,7 @@ nav{position:fixed;top:0;left:0;right:0;z-index:200;display:flex;align-items:cen
 
 /* CONTATO */
 #contato{position:relative}
-.contato-full-cover{position:absolute;top:0;left:0;right:0;bottom:0;background:rgba(8,16,40,0.88);z-index:1;pointer-events:none}
+.contato-full-cover{position:absolute;top:0;left:0;right:0;bottom:0;background:rgba(8,16,40,0.96);z-index:1;pointer-events:none}
 
 .contato-overlay{position:absolute;top:0;left:0;right:0;bottom:0;display:flex;flex-direction:column;justify-content:center;align-items:flex-start;padding:0 7% 8%;z-index:2}
 
@@ -102,6 +106,7 @@ nav{padding:7px 14px}
 <!-- HERO -->
 <section id="hero" class="slide-section">
 <img class="slide-img" src="imagens/1_Conectamos-capital-ativos-e-oportunidades-estrategicas.png" alt="NAU - Intermediacao Estrategica de Negocios">
+<div class="hero-links"><div class="hero-btns"><a class="hero-btn" href="#oportunidades">Explorar oportunidades</a><a class="hero-btn" href="#contato">Falar com a NAU</a></div></div>
 </section>
 
 <!-- BARRA DE PLATAFORMAS -->
