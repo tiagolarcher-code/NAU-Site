@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>M&amp;A Terminal · NAU Assessoria</title>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+body{background:#0d1f3a;font-family:'Segoe UI',system-ui,sans-serif;color:#e0e8f0;min-height:100vh;display:flex;align-items:center;justify-content:center;padding:20px}
+nav{position:fixed;top:0;left:0;right:0;z-index:200;display:flex;align-items:center;justify-content:space-between;padding:8px 28px;background:rgba(8,16,40,0.92);backdrop-filter:blur(12px);border-bottom:1px solid rgba(201,168,76,0.15)}
+.nav-logo{color:#c9a84c;font-size:0.9rem;font-weight:700;letter-spacing:0.22em;text-decoration:none;text-transform:uppercase}
+.nav-back{color:#7a8faa;text-decoration:none;font-size:0.72rem;letter-spacing:0.08em;text-transform:uppercase;transition:color 0.2s;border:1px solid rgba(201,168,76,0.25);padding:5px 14px;border-radius:2px}
+.nav-back:hover{color:#c9a84c;border-color:#c9a84c}
+.login-box{background:rgba(8,16,40,0.9);border:1px solid rgba(201,168,76,0.28);border-radius:6px;padding:40px 44px;width:100%;max-width:400px}
+.login-box h1{color:#c9a84c;font-size:0.72rem;letter-spacing:0.22em;text-transform:uppercase;font-weight:400;margin-bottom:6px}
+.login-box h2{color:#e0e8f0;font-size:1.35rem;font-weight:600;margin-bottom:28px;letter-spacing:0.04em}
+.lf{margin-bottom:16px}
+.lf label{display:block;color:#7a8faa;font-size:0.67rem;letter-spacing:0.1em;text-transform:uppercase;margin-bottom:6px}
+.lf input{width:100%;background:rgba(255,255,255,0.04);border:1px solid rgba(201,168,76,0.2);border-radius:2px;color:#e0e8f0;font-family:inherit;font-size:0.88rem;padding:10px 14px;outline:none;transition:border-color 0.2s}
+.lf input:focus{border-color:rgba(201,168,76,0.6)}
+.lg-btn{width:100%;padding:12px;background:#c9a84c;border:none;border-radius:2px;color:#0d1f3a;font-family:inherit;font-size:0.82rem;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;cursor:pointer;transition:background 0.2s;margin-top:8px}
+.lg-btn:hover{background:#e8c96a}
+#lg-err{margin-top:10px;font-size:0.77rem;color:#e05555;min-height:16px;text-align:center}
+@media(max-width:480px){.login-box{padding:28px 22px}}
+</style>
+</head>
+<body>
+<nav>
+<a href="/" class="nav-logo">NAU</a>
+<a href="/" class="nav-back">&#8592; Voltar</a>
+</nav>
+<div class="login-box">
+<h1>NAU Assessoria</h1>
+<h2>M&amp;A Terminal</h2>
+<div class="lf">
+<label>Utilizador</label>
+<input type="text" id="lg-user" placeholder="nau" autocomplete="username">
+</div>
+<div class="lf">
+<label>Senha</label>
+<input type="password" id="lg-pass" placeholder="&#8226;&#8226;&#8226;&#8226;&#8226;&#8226;" autocomplete="current-password">
+</div>
+<button class="lg-btn" onclick="doLogin()">Entrar</button>
+<p id="lg-err"></p>
+</div>
+<script>
+(function(){
+var KEY='nau_plt';
+if(sessionStorage.getItem(KEY)==='1'){window.location.replace('/ma/');}
+window.doLogin=function(){
+var u=document.getElementById('lg-user').value.trim();
+var p=document.getElementById('lg-pass').value;
+var err=document.getElementById('lg-err');
+if(u==='nau'&&p==='123456'){
+sessionStorage.setItem(KEY,'1');
+window.location.replace('/ma/');
+}else{
+err.textContent='Credenciais incorretas.';
+}
+};
+document.getElementById('lg-pass').addEventListener('keydown',function(e){if(e.key==='Enter')window.doLogin();});
+document.getElementById('lg-user').addEventListener('keydown',function(e){if(e.key==='Enter')document.getElementById('lg-pass').focus();});
+})();
+</script>
+</body>
+</html>
